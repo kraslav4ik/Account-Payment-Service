@@ -1,0 +1,8 @@
+.ant-btn.logout-button:hover {
+    color: aqua;
+}
+
+.ant-btn.logout-button {
+    color: red;
+}
+
