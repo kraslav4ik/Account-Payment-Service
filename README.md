@@ -1,13 +1,27 @@
 <h1 style="text-align: center">Account-payment service fullstack application</h1>
 
 <h3>Content:</h3>
+<ol>
+<li><a href="#about">About</a></li>
+<li><a href="#model">Model</a></li>
+<li><a href="#techstack">Tech stack</a></li>
+<li><a href="#reqr">Requirements</a></li>
+<li><a href="#inst">Installation</a></li>
+<li><a href="#maninst">Manual Installation</a></li>
+<li><a href="#launch">Launch</a></li>
 
-<h3>About:</h3>
+
+
+
+
+</ol>
+
+<h3 id="about">About:</h3>
 App is implementing the process of keeping the statistics of employee salary within company
-<h3>Model:</h3>
+<h3 id="model">Model:</h3>
 Yo
 
-<h3>Tech stack:</h3>
+<h3 id="techstack">Tech stack:</h3>
 <ul>
 <li><b>Frontend:</b> <i>React.js v18.2.0 + Antd library v5.1.2</i></li>
 <li><b>Backend:</b> <i>Spring v2.7.5</i></li>
@@ -18,7 +32,7 @@ Yo
 Also, HTTP basic authentication is supported for single requests
 </ul>
 
-<h3>Requirements:</h3>
+<h3 id="reqr">Requirements:</h3>
   
 <ul>
   <li><b>NodeJS</b> v18.12.1</li>
@@ -32,11 +46,11 @@ Also, HTTP basic authentication is supported for single requests
 ~$ sudo apt install openjdk-17-jdk-headless
 ```
 
-<h3>Installing:</h3>
+<h3 id="inst">Installation:</h3>
 
 Very soon there will be instruction for automatic setup and packages installation.
 
-<h3>Manual installing:</h3>
+<h3 id="maninst">Manual Installation:</h3>
 
 1. Clone this repo to your local / remote machine:
 ```bash
@@ -61,4 +75,5 @@ cd ./Account-Payment-Service
 ~/Account-Payment-Service-Backend$ cd ..
 ```
 
+<h3 id="launch">Launch:</h3>
 <img src="https://github.com/kraslav4ik/Account-Payment-Service/blob/master/img/AppScreen.jpg" alt="pic"/>
