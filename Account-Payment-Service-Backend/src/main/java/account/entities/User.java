@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @Column(name = "lastname")
     private String lastname;
     @NotBlank
-    @Pattern(regexp = ".+@acme.com$", message = "{Email should ends with company domain!}")
+    @Pattern(regexp = String.format(".+%s$", @Value("${account.email}")), message = "{Email should ends with company domain!}")
     @Column(name = "email")
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

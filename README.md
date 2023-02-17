@@ -38,12 +38,14 @@ Also, HTTP basic authentication is supported for single requests
   <li><b>NodeJS</b> v18.12.1</li>
   <li><b>npm</b> v8.19.2</li>
   <li><b>JDK</b> v17</li>
+  <li><b>MySQL</b> v8.0.32</li>
 </ul>  
 
 ```bash
 ~$ sudo apt install nodejs
 ~$ sudo apt install npm
 ~$ sudo apt install openjdk-17-jdk-headless
+~$ sudo apt-get install mysql-server
 ```
 
 <h3 id="inst">Installation:</h3>
@@ -60,15 +62,46 @@ git clone https://github.com/kraslav4ik/Account-Payment-Service.git Account-Paym
 cd ./Account-Payment-Service
 ```
 
-2. 
-3. Install frontend packages:
+2. Create database for data persisting. 
+
+    a. If you have just installed mysql, you already have default server, so, we're creating our db on it. For authorization, use password, created during installation:
+
+```bash
+mysql -u root -p
+password: root
+mysql> CREATE DATABASE account
+mysql>QUIT
+```
+
+b. If you already have server, for example, on another host, then:
+
+```bash
+mysql -h <host> -u <name> -p
+password: <password>
+mysql> CREATE DATABASE account
+mysql>QUIT
+```
+
+3. Setup your server:
+
+   Add all the info about Database, your JWT secret (there could be anything except empty string) and Company email domain(`@company.com`)
+```bash
+~/Account-Payment-Service$ echo "spring.datasource.username=`<USERNAME FROM 2nd STAGE>`" >> ./Account-Payment-Service-Backend/src/main/resources/application.properties
+~/Account-Payment-Service$ echo "spring.datasource.password=`<PASSWORD FROM 2nd STAGE>`" >> ./Account-Payment-Service-Backend/src/main/resources/application.properties
+~/Account-Payment-Service$ echo "spring.datasource.url=jdbc:mysql://`<YOUR DATABASE HOST:PORT>`/account" >> ./Account-Payment-Service-Backend/src/main/resources/application.properties
+~/Account-Payment-Service$ echo "account.jwtSecret=`<JWT_SECRET_KEY>`" >> ./Account-Payment-Service-Backend/src/main/resources/application.properties
+~/Account-Payment-Service$ echo "account.company_email=`<EMAIL_DOMAIN>`" >> ./Account-Payment-Service-Backend/src/main/resources/application.properties
+```
+
+
+4. Install frontend packages:
 ```bash
 ~/Account-Payment-Service$ cd ./Account-Payment-Service-Frontend
 ~/Account-Payment-Service-Frontend$ npm install
 ~/Account-Payment-Service-Frontend$ cd ..
 ```
 
-4. Install Backend Packages:
+5. Install Backend Packages:
 ```bash
 ~/Account-Payment-Service$ cd ./Account-Payment-Service-Backend
 ~/Account-Payment-Service-Backend$ ./gradlew build
@@ -76,4 +109,28 @@ cd ./Account-Payment-Service
 ```
 
 <h3 id="launch">Launch:</h3>
+
+   Launch backend server:
+```bash
+~/Account-Payment-Service$ tmux new -s backend
+IN_TMUX~/Account-Payment-Service$ cd ./Account-Payment-Service-Backend
+~/Account-Payment-Service-Frontend$ ./gradlew bootrun
+```
+
+   Launch frontend server:
+```bash
+~/Account-Payment-Service$ tmux new -s frontend
+IN_TMUX~/Account-Payment-Service$ cd ./Account-Payment-Service-Frontend
+~/Account-Payment-Service-Frontend$ npm start
+```
+
+By default, API server(backend) is on port 28892 and Client server(frontend) is on port 28893. You can change the port in the corresponding files:
+
+   `./Account-Payment-Service-Backend/src/main/resources/application.properties`
+
+   `./Account-Payment-Service-Frontend/package.JSON`
+
+That's it. After launching, you can reach the Service using https://`<host>`:`<port>`
+
+   
 <img src="https://github.com/kraslav4ik/Account-Payment-Service/blob/master/img/AppScreen.jpg" alt="pic"/>
