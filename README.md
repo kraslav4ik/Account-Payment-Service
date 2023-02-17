@@ -20,6 +20,7 @@ Yo
 * <b>NodeJS</b> v18.12.1
 * <b>npm</b> v8.19.2
 * <b>JDK</b> v17
+
 ```bash
 ~$ sudo apt install nodejs
 ~$ sudo apt install npm
