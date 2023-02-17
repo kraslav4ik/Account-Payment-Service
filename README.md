@@ -14,6 +14,8 @@ Yo
 <li><b>Data persisting:</b> <i>Hibernate v6.1.0.Final + MySQL</i></li>
 <li><b>Data transferring:</b> <i>user <--> service : <b>HTTPS(self-signed)</b>; Frontend <--> Backend : <b>HTTPS(self-signed)</b></i></li>
 <li><b>Authorization:</b><i>Json Web Token (jjwt v0.2 library) using HTTPonly Cookies</i></li>
+
+Also, HTTP basic authentication is supported for single requests
 </ul>
 
 <h3>Requirements:</h3>
