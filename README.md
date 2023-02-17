@@ -17,9 +17,12 @@ Yo
 </ul>
 
 <h3>Requirements:</h3>
-* <b>NodeJS</b> v18.12.1
-* <b>npm</b> v8.19.2
-* <b>JDK</b> v17
+  
+<ul>
+  <li><b>NodeJS</b> v18.12.1</li>
+  <li><b>npm</b> v8.19.2</li>
+  <li><b>JDK</b> v17</li>
+</ul>  
 
 ```bash
 ~$ sudo apt install nodejs
