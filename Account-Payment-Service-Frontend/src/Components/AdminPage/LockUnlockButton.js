@@ -6,7 +6,7 @@ import { lockUser, registerUser, unlockUser } from "../../Service/apiCalls";
 const LockUnlockButton = (props) => {
   const [loading, setLoading] = useState(false);
   const [buttonText, setButtonText] = useState(
-    props.isLockButton ? "Lock" : "Unlock"
+    props.isLockButton === true ? "Lock" : "Unlock"
   );
 
   return (

@@ -38,7 +38,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
         String upd = request.getHeader("authorization");
-        System.err.println(Arrays.toString(request.getParameterMap().values().toArray()));
+//        System.err.println(Arrays.toString(request.getParameterMap().values().toArray()));
         String message = "";
         if (upd != null && upd.matches("Basic .*")) {
             message = logEvents(request);

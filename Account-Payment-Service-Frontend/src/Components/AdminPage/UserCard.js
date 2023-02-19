@@ -62,7 +62,7 @@ const UserCard = (props) => {
             <Row>
               <Col span={7}>
                 <LockUnlockButton
-                  lockButton={true}
+                  isLockButton={true}
                   disabled={!currentUser.accountNonLocked}
                   email={currentUser.email}
                 />

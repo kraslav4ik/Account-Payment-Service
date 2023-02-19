@@ -13,19 +13,25 @@ const PersonalPaymentsTable = (props) => {
   const currentUser = props.currentUser;
   const [paymentRecords, setPaymentRecords] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+
   const isAdmin = () => {
-    if (currentUser.roles.includes("ROLE_ADMINISTRATOR")) {
+    console.log(currentUser.roles)
+    console.log(currentUser.roles.includes("ROLE_ADMINISTRATOR"))
+    if (currentUser.roles.includes("ROLE_ADMINISTRATOR") === true) {
       return true;
     }
     return false;
   };
   const getPaymentsCards = () => {
-    if (isAdmin) {
+    console.log("in function")
+    if (isAdmin === true) {
+      console.log("in admin")
       return;
     }
     const payments = [];
     getUserPayments()
       .then((infoFromRequest) => {
+        console.log(infoFromRequest)
         infoFromRequest.forEach((p) =>
           payments.push(
             <List.Item key={p.period}>
@@ -34,6 +40,7 @@ const PersonalPaymentsTable = (props) => {
           )
         );
         if (!payments.length) {
+          console.log("no payments")
           setPaymentRecords(
             <Title
               level={2}
@@ -61,7 +68,7 @@ const PersonalPaymentsTable = (props) => {
       .catch((failedResponse) => handleError(failedResponse));
   };
   const getPaymentByMonth = (period) => {
-    if (isAdmin) {
+    if (isAdmin === true) {
       return;
     }
     getSinglePayment(period)

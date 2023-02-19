@@ -1,5 +1,7 @@
 package account.entities;
 
+import account.constants.Constants;
+import account.services.ValidEmail;
 import account.services.ValidPassword;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +15,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.*;
+
 
 @Entity
 @Table(name = "users")
@@ -29,7 +32,7 @@ public class User implements UserDetails {
     @Column(name = "lastname")
     private String lastname;
     @NotBlank
-    @Pattern(regexp = String.format(".+%s$", @Value("${account.email}")), message = "{Email should ends with company domain!}")
+    @ValidEmail
     @Column(name = "email")
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

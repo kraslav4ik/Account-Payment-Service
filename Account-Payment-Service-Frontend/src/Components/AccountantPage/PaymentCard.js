@@ -11,16 +11,16 @@ const PaymentCard = (props) => {
       <Row>
         <Col>
           <div style={{ fontSize: "large" }}>
-              <i>Email: </i> <b>{currentPayment.email}</b>
-              <br />
-              <i>Period: </i> <b>{currentPayment.period}</b>
-              <br />
-              <i>Amount: </i>{" "}
-              {inChangeState ? (
-                <ChangePaymentForm />
-              ) : (
-                <b>{currentPayment.salary}</b>
-              )}
+            <i>Email: </i> <b>{currentPayment.email}</b>
+            <br />
+            <i>Period: </i> <b>{currentPayment.period}</b>
+            <br />
+            <i>Amount: </i>{" "}
+            {inChangeState ? (
+              <ChangePaymentForm />
+            ) : (
+              <b>{currentPayment.salary}</b>
+            )}
           </div>
         </Col>
         <Col>

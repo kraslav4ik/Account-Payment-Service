@@ -1,6 +1,8 @@
 package account.configuration;
 
 import account.entities.Role;
+import account.services.EmailValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,8 +28,7 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthenticationEntryPoint getEntryPointHandler() {
-        return new CustomAuthenticationEntryPoint() {
-        };
+        return new CustomAuthenticationEntryPoint();
     }
 
     @Bean
@@ -77,7 +78,6 @@ public class SecurityConfiguration {
                 .mvcMatchers("/api/auth/verifyJWT").authenticated()
                 .mvcMatchers("/api/security/events").hasAnyRole(Role.AUDITOR.name())
                 .mvcMatchers("/api/auth/signup").permitAll()
-                .antMatchers("/dbconsole/**").permitAll()
                 .mvcMatchers("/api/auth/login").permitAll()
                 .mvcMatchers("/actuator/**").permitAll()
                 .anyRequest().hasAnyRole(Role.ADMIN.name())

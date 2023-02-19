@@ -3,7 +3,6 @@ package account.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseCookie;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Component
-//@PropertySource("classpath:src/main/resources/config/application.properties")
 public class JwtUtils {
 
     @Value("${account.jwtSecret}")
