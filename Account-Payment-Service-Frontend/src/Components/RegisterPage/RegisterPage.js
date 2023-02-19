@@ -10,8 +10,6 @@ const RegisterPage = () => (
         style={{
           width: '50%', height: '60%', margin: 'auto', textAlign: 'center'
         }}
-      //   headStyle={{border: 'solid black'}}
-      //   bodyStyle={{border: 'solid black'}}
       >
           <RegisterForm/>
       </Card>

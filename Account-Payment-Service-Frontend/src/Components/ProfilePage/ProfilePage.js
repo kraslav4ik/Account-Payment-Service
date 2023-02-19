@@ -1,5 +1,5 @@
 import { UserOutlined } from "@ant-design/icons";
-import { App, Avatar, Card, Col, Row } from "antd";
+import { Avatar, Card, Col, Row } from "antd";
 import { rolesMap } from "../../constants";
 import ChangePassButton from "./ChangePassButton";
 import PersonalPaymentsTable from "./PersonalPaymentsTable";

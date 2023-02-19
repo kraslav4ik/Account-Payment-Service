@@ -17,9 +17,16 @@
 </ol>
 
 <h3 id="about">About:</h3>
-App is implementing the process of keeping the statistics of employee salary within company
+App is implementing the process of keeping the statistics of employee salary within company.
+
+Suppose, in your company, with some number of employees, you want to store the history of each employee monthly salary. You also might want to make one of the workers responsible for maintaining the stats, adding new payments, etc. And, of course, it would be convenient, if each employee also could use ths service, might have a look at his payments stats. 
+
+All of the above, with some additional features(such as accounts management for administrator, ability to keep the logs of users actions), is implemented in this web application.
+You should just launch a server with the service and share server's address with co-workers.
+
 <h3 id="model">Model:</h3>
-Yo
+
+Model section
 
 <h3 id="techstack">Tech stack:</h3>
 <ul>

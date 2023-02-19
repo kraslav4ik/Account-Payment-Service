@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { useState } from "react";
 import { handleError } from "../../Service/Ajax";
-import { lockUser, registerUser, unlockUser } from "../../Service/apiCalls";
+import { lockUser, unlockUser } from "../../Service/apiCalls";
 
 const LockUnlockButton = (props) => {
   const [loading, setLoading] = useState(false);

@@ -1,7 +1,5 @@
 import { Button, Card, Col, List, Row, Typography } from "antd";
 import { rolesMap } from "../../constants";
-import { handleError } from "../../Service/Ajax";
-import { lockUser, unlockUser } from "../../Service/apiCalls";
 import AddNewRoleButton from "./AddNewRoleButton";
 import DeleteRoleButton from "./DeleteRoleButton";
 import DeleteUserButton from "./DeleteUserButton";

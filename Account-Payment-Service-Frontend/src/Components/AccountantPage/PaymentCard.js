@@ -1,6 +1,5 @@
 import { Button, Card, Col, Row } from "antd";
 import { useState } from "react";
-import ChangePaymentButton from "./ChangePaymentButton";
 import ChangePaymentForm from "./ChangePaymentForm";
 
 const PaymentCard = (props) => {

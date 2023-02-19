@@ -34,10 +34,6 @@ const handleError = (response) => {
       EventHandler.dispatch("logout");
     }
   });
-  // if (response.status === 401) {
-    
-  // }
-  
 };
 
 export { Ajax, handleError };
