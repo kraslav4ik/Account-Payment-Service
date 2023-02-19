@@ -26,7 +26,25 @@ You should just launch a server with the service and share server's address with
 
 <h3 id="model">Model:</h3>
 
-Model section
+Here, role-based auth model is used. Roles are separated into 2 groups:
+1. Administrative group
+   * Administrator. Person with this role can manage users accounts: 
+     1. Lock/unlock account
+     2. Grant/delete role from user
+     3. Delete users accounts
+2. Business group
+   * User. Person with this role can manage his/her own account & have access to his/her payments history
+   * Accountant. Person with this role is responsible for maintaining payments stats. He/she:
+     1. Can add new payment records
+     2. Have access to all the payments within whole company
+     3. Can update existent payment records
+   * Auditor. This person is has access to all events records.
+
+And the following rules are applied:
+1. By default, first registered user is granted Administrator role, after that, each registered user will be granted user role.
+2. User cannot combine administrative & business roles. It means, that only one person can be the admin.
+3. All users have to use company's domain email address for creating account. That's the security measure to avoid registering "non-company" accounts.
+4. By default, after login, in next 24h user can use service from the same device without re-login. That feature is implemented using jwt tokens and could be parametrized.
 
 <h3 id="techstack">Tech stack:</h3>
 <ul>
