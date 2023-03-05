@@ -6,9 +6,9 @@ const PaymentCard = (props) => {
   const currentPayment = props.currentPayment;
   const [inChangeState, setInChangeState] = useState(false);
   return (
-    <Card style={{ width: "80%", margin: "auto" }}>
-      <Row>
-        <Col>
+    <Card style={{ width: "60%", margin: "auto" }}>
+      <Row align="middle">
+        <Col span={17}>
           <div style={{ fontSize: "large" }}>
             <i>Email: </i> <b>{currentPayment.email}</b>
             <br />
@@ -22,11 +22,11 @@ const PaymentCard = (props) => {
             )}
           </div>
         </Col>
-        <Col>
+        <Col span={5} offset={2} >
           {inChangeState ? (
-            <Button onClick={() => setInChangeState(false)}>Cancel</Button>
+            <Button size="large" onClick={() => setInChangeState(false)}>Cancel</Button>
           ) : (
-            <Button onClick={() => setInChangeState(true)}>Change</Button>
+            <Button size="large" onClick={() => setInChangeState(true)}>Change</Button>
           )}
         </Col>
       </Row>

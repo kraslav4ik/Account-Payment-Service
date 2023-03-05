@@ -1,8 +1,11 @@
-import { List, Typography } from "antd";
+import { Col, DatePicker, Input, List, Row, Typography } from "antd";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { monthFormat } from "../../constants";
 import { handleError } from "../../Service/Ajax";
 import { getAllPayments } from "../../Service/apiCalls";
+import AddNewPaymentsButton from "./AddNewPaymentsButton";
 import PaymentCard from "./PaymentCard";
 
 const { Title } = Typography;
@@ -43,7 +46,9 @@ const AccountantPage = () => {
           );
           return;
         }
-        setPayments(<List style={{width: "100%", margin: 'auto'}}>{paymentCards}</List>);
+        setPayments(
+          <List style={{ width: "100%", margin: "auto"}}>{paymentCards}</List>
+        );
       })
       .catch((failedResponse) => handleError(failedResponse));
   };
@@ -53,7 +58,37 @@ const AccountantPage = () => {
     getPaymentsCards(period, filteredEmail);
   }, []);
 
-  return payments;
+  return (
+    payments !== null && (
+      <div style={{
+        width: "100%",
+        position: "relative",
+        
+      }}>
+        <Row justify="center" align="middle" style={{width: "100%", }}>
+          <Col span={12}>
+            <Input.Group compact style={{width: "100%"}}>
+              <Input placeholder="Input email" style={{ width: "50%" }}></Input>
+              <DatePicker
+                defaultValue={
+                  searchParams.get("period")
+                    ? dayjs(searchParams.get("period"), monthFormat)
+                    : null
+                }
+                format={monthFormat}
+                picker="month"
+                style={{ width: "50%" }}
+              ></DatePicker>
+            </Input.Group>
+          </Col>
+          <Col span={5} offset={1}>
+            <AddNewPaymentsButton />
+          </Col>
+        </Row>
+        {payments}
+      </div>
+    )
+  );
 };
 
 export default AccountantPage;

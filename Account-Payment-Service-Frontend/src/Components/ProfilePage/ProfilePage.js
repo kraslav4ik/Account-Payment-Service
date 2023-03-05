@@ -15,7 +15,7 @@ const ProfilePage = (props) => {
   return (
     <>
       {currentUser && (
-        <Row justify="space-around" style={{ width: "100%" }}>
+        <Row justify="space-around" style={{ width: "100%"}}>
           <Col span={14}>
             <PersonalPaymentsTable currentUser={currentUser} />
           </Col>
