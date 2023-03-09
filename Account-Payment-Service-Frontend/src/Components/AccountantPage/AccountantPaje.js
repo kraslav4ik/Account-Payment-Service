@@ -11,64 +11,76 @@ import PaymentCard from "./PaymentCard";
 const { Title } = Typography;
 
 const AccountantPage = () => {
-  const [payments, setPayments] = useState(null);
+  const [paymentsRecords, setPaymentsRecords] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [filteredRecords, setFilteredRecords] = useState([]);
 
-  const getPaymentsCards = (period, filteredEmail) => {
-    const paymentCards = [];
-    getAllPayments()
-      .then((infoFromRequest) => {
-        infoFromRequest.forEach((p) => {
-          if (
-            (!period || p.period === period) &&
-            (!filteredEmail || p.email.includes(filteredEmail))
-          ) {
-            paymentCards.push(
-              <List.Item key={`${p.email}, ${p.period}`}>
-                <PaymentCard currentPayment={p} />
-              </List.Item>
-            );
-          }
-        });
-        if (!paymentCards.length) {
-          setPayments(
-            <Title
-              level={2}
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translateX(-50%) translateY(-50%)",
-              }}
-            >
-              No payments found
-            </Title>
-          );
-          return;
-        }
-        setPayments(
-          <List style={{ width: "100%", margin: "auto"}}>{paymentCards}</List>
-        );
-      })
-      .catch((failedResponse) => handleError(failedResponse));
-  };
   useEffect(() => {
+    const rows = [];
     const period = searchParams.get("period");
     const filteredEmail = searchParams.get("email");
-    getPaymentsCards(period, filteredEmail);
+    if (paymentsRecords) {
+      paymentsRecords.forEach((p) => {
+        if (
+          (!period || dayjs(p.period).isSame(dayjs(period, monthFormat))) &&
+          (!filteredEmail || p.email.includes(filteredEmail))
+        ) {
+          rows.push(
+            <List.Item key={`${p.email}, ${p.period}`}>
+              <PaymentCard currentPayment={p} />
+            </List.Item>
+          );
+        }
+      });
+      if (!rows.length) {
+        setFilteredRecords(
+          <Title
+            level={2}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translateX(-50%) translateY(-50%)",
+            }}
+          >
+            No payments found
+          </Title>
+        );
+        return;
+      }
+      setFilteredRecords(
+        <List style={{ width: "100%", margin: "auto" }}>{rows}</List>
+      );
+    }
+  }, [searchParams, paymentsRecords]);
+  useEffect(() => {
+    getAllPayments()
+      .then((infoFromRequest) => setPaymentsRecords(infoFromRequest))
+      .catch((failedResponse) => handleError(failedResponse));
   }, []);
 
   return (
-    payments !== null && (
-      <div style={{
-        width: "100%",
-        position: "relative",
-        
-      }}>
-        <Row justify="center" align="middle" style={{width: "100%", }}>
+    paymentsRecords !== null && (
+      <div
+        style={{
+          width: "100%",
+          position: "relative",
+        }}
+      >
+        <Row justify="center" align="middle" style={{ width: "100%" }}>
           <Col span={12}>
-            <Input.Group compact style={{width: "100%"}}>
-              <Input placeholder="Input email" style={{ width: "50%" }}></Input>
+            <Input.Group compact style={{ width: "100%" }}>
+              <Input
+                placeholder="Input email"
+                style={{ width: "50%" }}
+                defaultValue={searchParams.get("email")}
+                onChange={(t) => {
+                  t.target.value.length
+                    ? searchParams.set("email", t.target.value)
+                    : searchParams.delete("email");
+                  setSearchParams(searchParams);
+                }}
+              ></Input>
               <DatePicker
                 defaultValue={
                   searchParams.get("period")
@@ -78,6 +90,12 @@ const AccountantPage = () => {
                 format={monthFormat}
                 picker="month"
                 style={{ width: "50%" }}
+                onChange={(date, dateString) => {
+                  dateString
+                    ? searchParams.set("period", dateString)
+                    : searchParams.delete("period");
+                  setSearchParams(searchParams);
+                }}
               ></DatePicker>
             </Input.Group>
           </Col>
@@ -85,7 +103,7 @@ const AccountantPage = () => {
             <AddNewPaymentsButton />
           </Col>
         </Row>
-        {payments}
+        {filteredRecords}
       </div>
     )
   );

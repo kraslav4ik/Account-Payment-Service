@@ -2,7 +2,9 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Col, Popover, Row } from "antd";
 import { useState } from "react";
 import EventHandler from "../../EventHandler";
+import { handleError } from "../../Service/Ajax";
 import { deleteUser } from "../../Service/apiCalls";
+import ButtonWithRequest from "../ButtonWithRequest";
 
 const DeleteUserButton = (props) => (
   <Popover
@@ -22,7 +24,7 @@ const DeleteUserButton = (props) => (
 
 const DeleteUserPopover = (props) => {
   const [deleted, setDeleted] = useState(false);
-  const setDeletedFromChild = (val) => setDeleted(val);
+  const setTrue = () => setDeleted(true);
   return (
     <Row gutter={12} align={"middle"}>
       {deleted ? (
@@ -31,9 +33,16 @@ const DeleteUserPopover = (props) => {
         <>
           <Col>Do you want to delete this user?</Col>
           <Col>
-            <YesButton
-              currentUser={props.currentUser}
-              setDeletedFromChild={setDeletedFromChild}
+            <ButtonWithRequest
+              type="primary"
+              size="medium"
+              buttonText="Yes"
+              ghost={true}
+              danger={false}
+              htmltype="button"
+              requestFunction={deleteUser}
+              successFunction={setTrue}
+              requestInfo={props.currentUser.email}
             />
           </Col>
         </>
@@ -42,28 +51,4 @@ const DeleteUserPopover = (props) => {
   );
 };
 
-const YesButton = (props) => {
-  const [loading, setLoading] = useState(false);
-  return (
-    <Button
-      type="primary"
-      loading={loading}
-      ghost
-      onClick={() => {
-        setLoading(true);
-        deleteUser(props.currentUser.email)
-          .then(() => {
-            props.setDeletedFromChild(true);
-            return new Promise((r) =>
-                  setTimeout(() => r(window.location.reload()), 5000)
-                );
-          })
-          .catch(() => EventHandler.dispatch("error"))
-          .finally(() => setLoading(false));
-      }}
-    >
-      Yes
-    </Button>
-  );
-};
 export default DeleteUserButton;

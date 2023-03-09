@@ -1,5 +1,6 @@
 package account.services;
 
+import account.dto.DeletePaymentRequestDTO;
 import account.dto.PaymentResponseDTO;
 import account.dto.SalaryInfoDTO;
 import account.entities.Payment;
@@ -9,7 +10,9 @@ import account.exceptions.NoSuchUserException;
 import account.repositories.PaymentRepository;
 import account.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.YearMonth;
@@ -64,6 +67,23 @@ public class PaymentService {
             this.paymentRepository.save(existPayment);
         }
         return new PaymentResponseDTO("Updated successfully!");
+    }
+
+    public PaymentResponseDTO deletePayment(DeletePaymentRequestDTO paymentToDelete) {
+        String email = paymentToDelete.email();
+        YearMonth period = paymentToDelete.period();
+        List<User> lst = this.userRepository.findByEmail(email);
+        if (lst.isEmpty()) {
+            throw new NoSuchUserException();
+        }
+
+        User user = lst.get(0);
+        Payment existPayment = this.paymentRepository.findByUserAndPeriod(user, period);
+        if (existPayment == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Couldn't find the payment you want to delete");
+        }
+        this.paymentRepository.delete(existPayment);
+        return new PaymentResponseDTO("Deleted successfully!");
     }
 
     public List<SalaryInfoDTO> getAllPayments() {

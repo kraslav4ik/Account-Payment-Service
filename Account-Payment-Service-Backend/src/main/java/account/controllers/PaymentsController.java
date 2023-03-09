@@ -1,6 +1,7 @@
 package account.controllers;
 
 
+import account.dto.DeletePaymentRequestDTO;
 import account.dto.PaymentResponseDTO;
 import account.dto.SalaryInfoDTO;
 import account.entities.Payment;
@@ -43,6 +44,11 @@ public class PaymentsController {
     @PutMapping("api/acct/payments")
     public PaymentResponseDTO updatePayment(@RequestBody @Valid Payment payment) {
         return this.paymentService.updatePayment(payment);
+    }
+
+    @DeleteMapping("api/acct/payments")
+    public PaymentResponseDTO deletePayment(@RequestBody @Valid DeletePaymentRequestDTO paymentToDelete) {
+        return this.paymentService.deletePayment(paymentToDelete);
     }
 
     @GetMapping("api/empl/payment")

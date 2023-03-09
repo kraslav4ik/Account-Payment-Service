@@ -55,6 +55,10 @@ const unlockUser = (email) =>
 
 const getAllPayments = () => Ajax("/api/acct/payments", "GET");
 
+const updatePayment = (payment) => Ajax("/api/acct/payments", "PUT", payment);
+
+const deletePayment = (paymentInfo) => Ajax("/api/acct/payments", "DELETE", paymentInfo);
+
 export {
   lockUser,
   unlockUser,
@@ -70,4 +74,6 @@ export {
   getUserPayments,
   getSinglePayment,
   getAllPayments,
+  updatePayment,
+  deletePayment
 };

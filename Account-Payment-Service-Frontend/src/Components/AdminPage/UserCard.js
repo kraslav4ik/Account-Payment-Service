@@ -1,7 +1,8 @@
 import { Button, Card, Col, List, Row, Typography } from "antd";
-import { rolesMap } from "../../constants";
+import { rolesMap, rolesRequestRepresenatation } from "../../constants";
+import { deleteRole } from "../../Service/apiCalls";
+import ButtonWithRequest from "../ButtonWithRequest";
 import AddNewRoleButton from "./AddNewRoleButton";
-import DeleteRoleButton from "./DeleteRoleButton";
 import DeleteUserButton from "./DeleteUserButton";
 import LockUnlockButton from "./LockUnlockButton";
 
@@ -9,24 +10,20 @@ const { Title } = Typography;
 
 const UserCard = (props) => {
   const currentUser = props.currentUser;
+  const canRemoveRole = currentUser.roles.length > 1;
   const rolesToPrint = [];
   currentUser.roles.forEach((r) =>
     rolesToPrint.push(
       <List.Item>
-        <Card title={rolesMap[r]} headStyle={{ textAlign: "center" }}>
-          {currentUser.roles.length > 1 ? (
-            <DeleteRoleButton
-              disabled={false}
-              currentUser={currentUser}
-              role={r}
-            />
-          ) : (
-            <DeleteRoleButton
-              disabled={true}
-              currentUser={currentUser}
-              role={r}
-            />
-          )}
+        <Card title={rolesMap[r]} headStyle={{ textAlign: "center" }} bodyStyle={{display: "flex", justifyContent: "center"}}>
+          <ButtonWithRequest
+            disabled={!canRemoveRole}
+            buttonText="Delete Role"
+            type="primary"
+            danger={true}
+            requestFunction={deleteRole}
+            requestInfo={[currentUser.email, rolesRequestRepresenatation[r]]}
+          />
         </Card>
       </List.Item>
     )

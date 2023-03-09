@@ -15,17 +15,13 @@ const PersonalPaymentsTable = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const isAdmin = () => {
-    console.log(currentUser.roles)
-    console.log(currentUser.roles.includes("ROLE_ADMINISTRATOR"))
     if (currentUser.roles.includes("ROLE_ADMINISTRATOR") === true) {
       return true;
     }
     return false;
   };
   const getPaymentsCards = () => {
-    console.log("in function")
     if (isAdmin === true) {
-      console.log("in admin")
       return;
     }
     const payments = [];
