@@ -15,14 +15,22 @@ const UserCard = (props) => {
   currentUser.roles.forEach((r) =>
     rolesToPrint.push(
       <List.Item>
-        <Card title={rolesMap[r]} headStyle={{ textAlign: "center" }} bodyStyle={{display: "flex", justifyContent: "center"}}>
+        <Card
+          title={rolesMap[r]}
+          headStyle={{ textAlign: "center" }}
+          bodyStyle={{ display: "flex", justifyContent: "center" }}
+        >
           <ButtonWithRequest
             disabled={!canRemoveRole}
             buttonText="Delete Role"
             type="primary"
             danger={true}
             requestFunction={deleteRole}
-            requestInfo={[currentUser.email, rolesRequestRepresenatation[r]]}
+            requestInfo={{
+              user: currentUser.email,
+              role: rolesRequestRepresenatation[r],
+              operation: "REMOVE",
+            }}
           />
         </Card>
       </List.Item>
@@ -67,7 +75,6 @@ const UserCard = (props) => {
                   isLockButton={false}
                   disabled={currentUser.accountNonLocked}
                   email={currentUser.email}
-                  
                 />
               </Col>
             </Row>

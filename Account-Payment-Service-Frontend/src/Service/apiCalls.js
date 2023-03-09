@@ -40,12 +40,8 @@ const grantRole = (email, role) =>
     operation: "GRANT",
   });
 
-const deleteRole = (email, role) =>
-  Ajax("/api/admin/user/role", "PUT", {
-    user: email,
-    role: role,
-    operation: "REMOVE",
-  });
+const deleteRole = (deleteRoleInfo) =>
+  Ajax("/api/admin/user/role", "PUT", deleteRoleInfo);
 
 const lockUser = (email) =>
   Ajax("/api/admin/user/access", "PUT", { user: email, operation: "LOCK" });
