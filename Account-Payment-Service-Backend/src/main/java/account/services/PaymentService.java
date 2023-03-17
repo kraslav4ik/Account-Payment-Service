@@ -4,7 +4,9 @@ import account.dto.DeletePaymentRequestDTO;
 import account.dto.PaymentResponseDTO;
 import account.dto.SalaryInfoDTO;
 import account.entities.Payment;
+import account.entities.Role;
 import account.entities.User;
+import account.exceptions.AdministratorPaymentException;
 import account.exceptions.DuplicateRecordsException;
 import account.exceptions.NoSuchUserException;
 import account.repositories.PaymentRepository;
@@ -42,6 +44,9 @@ public class PaymentService {
             User user = lst.get(0);
             if (paymentRepository.existsByUserAndPeriod(user, p.getPeriod())) {
                 throw new DuplicateRecordsException();
+            }
+            if (user.getRoles().contains(Role.ADMIN)) {
+                throw new AdministratorPaymentException();
             }
             p.setUser(user);
             this.paymentRepository.save(p);

@@ -15,6 +15,7 @@ const ButtonWithRequest = (props) => {
       disabled={props.disabled}
       danger={props.danger}
       htmltype={props.htmltype}
+      style={props.buttonStyle}
       onClick={() => {
         setLoading(true);
         props

@@ -1,10 +1,9 @@
-import { Button, Card, Col, List, Row, Typography } from "antd";
+import { Card, Col, List, Row, Typography } from "antd";
 import { rolesMap, rolesRequestRepresenatation } from "../../constants";
-import { deleteRole } from "../../Service/apiCalls";
+import { deleteRole, lockUser, unlockUser } from "../../Service/apiCalls";
 import ButtonWithRequest from "../ButtonWithRequest";
 import AddNewRoleButton from "./AddNewRoleButton";
 import DeleteUserButton from "./DeleteUserButton";
-import LockUnlockButton from "./LockUnlockButton";
 
 const { Title } = Typography;
 
@@ -64,17 +63,23 @@ const UserCard = (props) => {
             </p>
             <Row>
               <Col span={7}>
-                <LockUnlockButton
-                  isLockButton={true}
+                <ButtonWithRequest
                   disabled={!currentUser.accountNonLocked}
-                  email={currentUser.email}
+                  type="default"
+                  buttonStyle={{ width: "100%" }}
+                  buttonText="Lock"
+                  requestFunction={lockUser}
+                  requestInfo={currentUser.email}
                 />
               </Col>
               <Col span={7} offset={2}>
-                <LockUnlockButton
-                  isLockButton={false}
+                <ButtonWithRequest
                   disabled={currentUser.accountNonLocked}
-                  email={currentUser.email}
+                  type="default"
+                  buttonStyle={{ width: "100%" }}
+                  buttonText="Unlock"
+                  requestFunction={unlockUser}
+                  requestInfo={currentUser.email}
                 />
               </Col>
             </Row>
@@ -87,7 +92,6 @@ const UserCard = (props) => {
             bordered={true}
             dataSource={rolesToPrint}
             renderItem={(item) => item}
-            // style={{display: "flex", justifyContent: "center"}}
             header={
               <h2
                 style={{ width: "100%", margin: "auto", textAlign: "center" }}

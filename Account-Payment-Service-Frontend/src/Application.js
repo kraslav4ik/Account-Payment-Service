@@ -13,6 +13,7 @@ import AccountantPage from "./Components/AccountantPage/AccountantPaje";
 import { useLocation } from "react-router-dom";
 import { handleError } from "./Service/Ajax";
 import AuditorPage from "./Components/AuditorPage/AuditorPage";
+import NewPaymentsPage from "./Components/AccountantPage/NewPaymentsPage";
 
 const { Header, Content, Footer } = Layout;
 
@@ -50,12 +51,12 @@ const Application = () => {
     return navigate("/login");
   };
 
-  const errorNotification = (message) => {
+  const errorNotification = (msg) => {
     notification.warning({
       placement: "topLeft",
       duration: 5,
       message: "Error",
-      description: message,
+      description: msg,
     });
   };
 
@@ -72,7 +73,6 @@ const Application = () => {
           background: colorBgContainer,
           display: "flex",
           justifyContent: "center",
-          // alignItems: "center",
         }}
       >
         <Routes>
@@ -86,6 +86,7 @@ const Application = () => {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/accountant" element={<AccountantPage />} />
           <Route path="/auditor" element={<AuditorPage />} />
+          <Route path="/accountant/new" element={<NewPaymentsPage />} />
         </Routes>
       </Content>
       <Footer style={{ textAlign: "center" }}>
