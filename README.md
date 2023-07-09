@@ -94,7 +94,7 @@ cd ./Account-Payment-Service
 ```bash
 mysql -u root -p
 password: root
-mysql> CREATE DATABASE account
+mysql> CREATE DATABASE account;
 mysql>QUIT
 ```
 
